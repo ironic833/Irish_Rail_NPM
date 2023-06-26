@@ -180,6 +180,148 @@ function getCurrentTrains() {
       });
   }
 
+  function getAllTrainsServingWthNums(station, time) {
+    const url = `http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc=${station}&NumMins=${time}`;
+  
+    return axios
+      .get(url)
+      .then((response) => {
+        const rawData = response.data;
+        return new Promise((resolve, reject) => {
+          xml2js.parseString(rawData, (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              const trains = result.ArrayOfObjStationData.objStationData.map((train) => {
+                return {
+                  Traincode: train.Traincode[0].trim(),
+                  Stationfullname: train.Stationfullname[0],
+                  Stationcode: train.Stationcode[0],
+                  Querytime: train.Querytime[0],
+                  Traindate: train.Traindate[0],
+                  Origin: train.Origin[0],
+                  Destination: train.Destination[0],
+                  Origintime: train.Origintime[0],
+                  Destinationtime: train.Destinationtime[0],
+                  Status: train.Status[0],
+                  Lastlocation: train.Lastlocation[0],
+                  Duein: train.Duein[0],
+                  Late: train.Late[0],
+                  Exparrival: train.Exparrival[0],
+                  Expdepart: train.Expdepart[0],
+                  Scharrival: train.Scharrival[0],
+                  Schdepart: train.Schdepart[0],
+                  Direction: train.Direction[0],
+                  Traintype: train.Traintype[0],
+                  Locationtype: train.Locationtype[0],
+                };
+              });
+              resolve(trains);
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        throw new Error('Failed to retrieve train data');
+      });
+  }
+
+  /* function getAllStationCodes() {
+    const url = 'http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML';
+  
+    return axios
+      .get(url)
+      .then((response) => {
+        const rawData = response.data;
+        return new Promise((resolve, reject) => {
+          xml2js.parseString(rawData, (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              const stations = result.ArrayOfObjStation.objStation;
+              const stationCodes = stations.map((station) => station.StationCode[0]);
+              resolve(stationCodes);
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        throw new Error('Failed to retrieve station codes');
+      });
+  }
+
+  function getStationDataByCode(stationCode) {
+    const url = `http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML?StationCode=${stationCode}`;
+  
+    return axios
+      .get(url)
+      .then((response) => {
+        const rawData = response.data;
+        return new Promise((resolve, reject) => {
+          xml2js.parseString(rawData, (error, result) => {
+            if (error) {
+              reject(error);
+            } else {
+              const trainObjects = result.ArrayOfObjStation.objStationData.map((trainData) => {
+                return {
+                  Servertime: trainData.Servertime[0],
+                  Traincode: trainData.Traincode[0],
+                  Stationfullname: trainData.Stationfullname[0],
+                  Stationcode: trainData.Stationcode[0],
+                  Querytime: trainData.Querytime[0],
+                  Traindate: trainData.Traindate[0],
+                  Origin: trainData.Origin[0],
+                  Destination: trainData.Destination[0],
+                  Origintime: trainData.Origintime[0],
+                  Destinationtime: trainData.Destinationtime[0],
+                  Status: trainData.Status[0],
+                  Lastlocation: trainData.Lastlocation[0],
+                  Duein: trainData.Duein[0],
+                  Late: trainData.Late[0],
+                  Exparrival: trainData.Exparrival[0],
+                  Expdepart: trainData.Expdepart[0],
+                  Scharrival: trainData.Scharrival[0],
+                  Schdepart: trainData.Schdepart[0],
+                  Direction: trainData.Direction[0],
+                  Traintype: trainData.Traintype[0],
+                  Locationtype: trainData.Locationtype[0],
+                };
+              });
+              resolve(trainObjects);
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        throw new Error('Failed to retrieve station data');
+      });
+  }
+
+  
+  async function getAllTrainsByStationCode(stationCode) {
+    let stationCodes = await getAllStationCodes();
+    console.dir(stationCodes);
+    if (!stationCodes.includes(stationCode)) {
+      throw new Error(`Invalid station code: ${stationCode}`);
+    }
+
+    return getStationDataByCode(stationCode)
+      .then((trainObjects) => {
+        return trainObjects;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  } */
+
+
 module.exports = {
-  getAllStations, getCurrentTrains, getAllStationsFilter, getAllTrainsFilter, getAllTrainsServing
+  getAllStations, 
+  getCurrentTrains, 
+  getAllStationsFilter, 
+  getAllTrainsFilter, 
+  getAllTrainsServing, 
+  getAllTrainsServingWthNums/* ,
+  getAllStationCodes,
+  getAllTrainsByStationCode */
 };
