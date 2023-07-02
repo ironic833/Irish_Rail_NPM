@@ -294,11 +294,23 @@ function getCurrentTrains() {
   }
   
   
-/*   
+  
   async function getAllTrainsByStationCode(stationCode) {
+
     let stationCodes = await getAllStationCodes();
+
     console.dir(stationCodes);
-    if (!stationCodes.includes(stationCode)) {
+
+    stationCodes.forEach(stationCodeOfArray => {
+      if (stationCode == stationCodeOfArray) {
+        console.log("Found");
+      }
+
+      getStationDataByCode(stationCode);
+
+    });
+
+   /*  if (!(stationCodes.includes(stationCode))) {
       throw new Error(`Invalid station code: ${stationCode}`);
     }
 
@@ -308,8 +320,9 @@ function getCurrentTrains() {
       })
       .catch((error) => {
         throw error;
-      });
-  }  */
+      }); */
+
+  } 
 
 
 module.exports = {
@@ -320,6 +333,6 @@ module.exports = {
   getAllTrainsServing, 
   getAllTrainsServingWthNums,
   getAllStationCodes,
-/*   getAllTrainsByStationCode,  */
+  getAllTrainsByStationCode, 
   getStationDataByCode
 };

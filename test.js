@@ -5,9 +5,9 @@ const { getAllStations,
     getAllTrainsServing, 
     getAllTrainsServingWthNums,
     getAllStationCodes,
-   /*  getAllTrainsByStationCode, */
+    getAllTrainsByStationCode,
     getStationDataByCode } = require('./IRFunc');
 
-    let trains = getAllTrainsByStationCode('CORK');
+    let trains = getAllTrainsByStationCode('CLARA');
 
     console.dir(trains);
