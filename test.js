@@ -8,6 +8,11 @@ const { getAllStations,
     getAllTrainsByStationCode,
     getStationDataByCode } = require('./IRFunc');
 
-    let trains = getAllTrainsByStationCode('CLARA');
 
-    console.dir(trains);
+    async function getStations() {
+      const trains = await getAllStations();
+      console.log(trains);
+    }
+    
+    getStations();
+    

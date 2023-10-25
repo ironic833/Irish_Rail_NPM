@@ -1,6 +1,8 @@
 const axios = require('axios');
 const xml2js = require('xml2js');
 
+
+//returns a list of all stations with StationDesc, StaionCode, StationId, StationAlias, StationLatitude and StationLongitude ordered by Latitude, Longitude
 function getAllStations() {
   const url = 'http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML';
 
@@ -33,6 +35,8 @@ function getAllStations() {
     });
 }
 
+//returns a listing of 'running trains' ie trains that are between 
+//origin and destination or are due to start within 10 minutes of the query time. Returns TrainStatus, TrainLatitude, TrainLongitude, TrainCode, TrainDate, PublicMessage and Direction
 function getCurrentTrains() {
     const url = 'http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML';
   
@@ -66,6 +70,8 @@ function getCurrentTrains() {
       });
   }
 
+  //returns a list of all stations with StationDesc, StaionCode, StationId, StationAlias, StationLatitude and StationLongitude ordered by Latitude, Longitude filtered by StationType 
+  //- takes a single letter with 4 possible values for the StationType parameter (A for All, M for Mainline, S for suburban and D for DART) any other value will be changed to A
   function getAllStationsFilter(stationType) {
     const url = `http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML_WithStationType?StationType=${stationType}`;
   
@@ -98,6 +104,8 @@ function getCurrentTrains() {
       });
   }
 
+  //returns a listing of 'running trains' ie trains that are between origin and destination or are due to start within 10 minutes of the query time. Returns TrainStatus, TrainLatitude, TrainLongitude, TrainCode, TrainDate, PublicMessage and Direction filtered by traintype,
+  //takes a single letter with 4 possible values for the StationType parameter (A for All, M for Mainline, S for suburban and D for DART) any other value will be changed to A
   function getAllTrainsFilter(trainType) {
     const url = `http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML_WithTrainType?TrainType=${trainType}`;
   
@@ -131,6 +139,8 @@ function getCurrentTrains() {
       });
   }
 
+
+//returns all trains due to serve the named station in the next 90 minutes
   function getAllTrainsServing(stationDesc) {
     const url = `http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML?StationDesc=${stationDesc}`;
 
@@ -180,6 +190,7 @@ function getCurrentTrains() {
       });
   }
 
+  //returns all trains due to serve the named station in the next x minutes (x must be between 5 and 90)
   function getAllTrainsServingWthNums(station, time) {
     const url = `http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML_withNumMins?StationDesc=${station}&NumMins=${time}`;
   
@@ -226,6 +237,7 @@ function getCurrentTrains() {
       });
   }
 
+  // returns all of the station codes only
   function getAllStationCodes() {
     const url = 'http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML';
   
