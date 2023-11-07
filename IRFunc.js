@@ -2,7 +2,8 @@ const axios = require('axios');
 const xml2js = require('xml2js');
 
 
-//returns a list of all stations with StationDesc, StaionCode, StationId, StationAlias, StationLatitude and StationLongitude ordered by Latitude, Longitude
+//returns a list of all stations with StationDesc, StaionCode, StationId, StationAlias, StationLatitude and StationLongitude ordered by 
+//Latitude, Longitude
 function getAllStations() {
   const url = 'http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML';
 
@@ -36,7 +37,8 @@ function getAllStations() {
 }
 
 //returns a listing of 'running trains' ie trains that are between 
-//origin and destination or are due to start within 10 minutes of the query time. Returns TrainStatus, TrainLatitude, TrainLongitude, TrainCode, TrainDate, PublicMessage and Direction
+//origin and destination or are due to start within 10 minutes of the query time. Returns TrainStatus, TrainLatitude, 
+//TrainLongitude, TrainCode, TrainDate, PublicMessage and Direction
 function getCurrentTrains() {
     const url = 'http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML';
   
@@ -306,7 +308,7 @@ function getCurrentTrains() {
   }
   
   
-  
+  // Will return all trains going to a station not working currently
   async function getAllTrainsByStationCode(stationCode) {
 
     let stationCodes = await getAllStationCodes();
@@ -322,7 +324,7 @@ function getCurrentTrains() {
 
     });
 
-   /*  if (!(stationCodes.includes(stationCode))) {
+    if (!(stationCodes.includes(stationCode))) {
       throw new Error(`Invalid station code: ${stationCode}`);
     }
 
@@ -332,7 +334,7 @@ function getCurrentTrains() {
       })
       .catch((error) => {
         throw error;
-      }); */
+      });
 
   } 
 

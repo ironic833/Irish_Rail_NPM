@@ -10,8 +10,8 @@ const { getAllStations,
 
 
     async function getStations() {
-      const trains = await getAllStations();
-      console.log(trains);
+      const output = await getAllStationsFilter('D');
+      console.log(output);
     }
     
     getStations();
