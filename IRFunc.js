@@ -308,7 +308,7 @@ function getCurrentTrains() {
   }
   
   
-  // Will return all trains going to a station not working currently
+  /* // Will return all trains going to a station not working currently
   async function getAllTrainsByStationCode(stationCode) {
 
     let stationCodes = await getAllStationCodes();
@@ -336,7 +336,7 @@ function getCurrentTrains() {
         throw error;
       });
 
-  } 
+  }  */
 
 
 module.exports = {
@@ -347,6 +347,6 @@ module.exports = {
   getAllTrainsServing, 
   getAllTrainsServingWthNums,
   getAllStationCodes,
-  getAllTrainsByStationCode, 
+/*   getAllTrainsByStationCode,  */
   getStationDataByCode
 };

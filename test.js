@@ -1,4 +1,4 @@
-const { getAllStations, 
+/* const { getAllStations, 
     getCurrentTrains, 
     getAllStationsFilter, 
     getAllTrainsFilter, 
@@ -10,9 +10,9 @@ const { getAllStations,
 
 
     async function getStations() {
-      const output = await getAllStationsFilter('D');
+      const output = await getAllTrainsByStationCode('TARA');
       console.log(output);
     }
     
     getStations();
-    
+     */
